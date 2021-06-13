@@ -1,13 +1,11 @@
 package com.cursor.mopla.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "users")
 @Data
@@ -25,6 +23,7 @@ public class User extends BasicEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user")
     private List<Feedback> feedbacks;
 

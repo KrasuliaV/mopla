@@ -1,9 +1,6 @@
 package com.cursor.mopla.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +8,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "category")
 @Data
@@ -19,9 +17,10 @@ import java.util.List;
 @Builder
 public class Category extends BasicEntity {
 
-    @Column(name = "fullName")
+    @Column(name = "full_name")
     private String fullName;
 
+    @EqualsAndHashCode.Exclude
     @ManyToMany
     private List<Movie> movieList;
 }

@@ -1,15 +1,13 @@
 package com.cursor.mopla.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "rate")
 @Data
@@ -24,7 +22,7 @@ public class Rate extends BasicEntity {
     @Column(name = "value")
     private double value;
 
-    @Column(name = "votesCount")
+    @Column(name = "votes_count")
     private long votesCount;
 
 }

@@ -1,12 +1,10 @@
 package com.cursor.mopla.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "review")
 @Data
@@ -15,15 +13,17 @@ import javax.persistence.*;
 @Builder
 public class Feedback extends BasicEntity {
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
 
-    @Column(name = "feedbackText")
+    @Column(name = "feedback_text")
     private String feedbackText;
 
-    @Column(name = "is_like")
-    private boolean isLike;
+    @Column(name = "is_liked")
+    private boolean isLiked;
 }
