@@ -17,8 +17,8 @@ public class User extends BasicEntity {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "password")
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;

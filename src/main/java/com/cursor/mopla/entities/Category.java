@@ -21,6 +21,6 @@ public class Category extends BasicEntity {
     private String fullName;
 
     @EqualsAndHashCode.Exclude
-    @ManyToMany
+    @ManyToMany(mappedBy = "categoryList")
     private List<Movie> movieList;
 }

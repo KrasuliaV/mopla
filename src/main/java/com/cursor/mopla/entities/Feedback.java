@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "review")
+@Table(name = "feedback")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
