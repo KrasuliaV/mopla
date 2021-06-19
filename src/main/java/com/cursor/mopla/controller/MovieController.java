@@ -1,8 +1,10 @@
 package com.cursor.mopla.controller;
 
+import com.cursor.mopla.dto.MovieDto;
 import com.cursor.mopla.entities.Movie;
 import com.cursor.mopla.service.CategoryService;
 import com.cursor.mopla.service.MovieService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +23,13 @@ public class MovieController {
 
     private final CategoryService categoryService;
 
+    private final ModelMapper mapper;
+
     @Autowired
-    public MovieController(MovieService movieService, CategoryService categoryService) {
+    public MovieController(MovieService movieService, CategoryService categoryService, ModelMapper mapper) {
         this.movieService = movieService;
         this.categoryService = categoryService;
+        this.mapper = mapper;
     }
 
     @GetMapping("/create")
@@ -35,11 +40,11 @@ public class MovieController {
     }
 
     @PostMapping("/create")
-    public String create(@Validated @ModelAttribute("movie") Movie movie, BindingResult result) {
+    public String create(@Validated @ModelAttribute("movie") MovieDto movieDto, BindingResult result) {
         if (result.hasErrors()) {
             return "create-todo";
         }
-        movieService.create(movie);
+        movieService.create(mapper.map(movieDto, Movie.class));
         return "redirect:/movie/all";
     }
 
