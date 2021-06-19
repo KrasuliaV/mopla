@@ -1,9 +1,9 @@
 package com.cursor.mopla.repositories;
 
-import com.cursor.mopla.entities.Movie;
+import com.cursor.mopla.entities.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MovieRepository extends JpaRepository<Movie, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 }
