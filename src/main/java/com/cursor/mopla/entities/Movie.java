@@ -3,6 +3,7 @@ package com.cursor.mopla.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -32,10 +33,9 @@ public class Movie extends BasicEntity {
 
     @EqualsAndHashCode.Exclude
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rate_id", referencedColumnName = "id")
     private Rate rate;
 
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "movie")
-    private List<Feedback> feedbacks;
+    private List<Feedback> feedbacks = new ArrayList<>();
 }

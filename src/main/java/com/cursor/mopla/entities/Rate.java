@@ -2,10 +2,7 @@ package com.cursor.mopla.entities;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -16,7 +13,8 @@ import javax.persistence.Table;
 @Builder
 public class Rate extends BasicEntity {
 
-    @OneToOne(mappedBy = "rate")
+    @OneToOne()
+    @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movie;
 
     @Column(name = "value")

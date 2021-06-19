@@ -17,6 +17,9 @@ import java.util.List;
 @Builder
 public class Category extends BasicEntity {
 
+    @Column(name = "short_name")
+    private String shortName;
+
     @Column(name = "full_name")
     private String fullName;
 
