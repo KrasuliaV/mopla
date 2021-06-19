@@ -17,10 +17,13 @@ import java.util.List;
 @Builder
 public class Category extends BasicEntity {
 
+    @Column(name = "short_name")
+    private String shortName;
+
     @Column(name = "full_name")
     private String fullName;
 
     @EqualsAndHashCode.Exclude
-    @ManyToMany
+    @ManyToMany(mappedBy = "categoryList")
     private List<Movie> movieList;
 }
