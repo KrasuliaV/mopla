@@ -1,9 +1,11 @@
 package com.cursor.mopla.entities;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -12,7 +14,8 @@ import javax.persistence.MappedSuperclass;
 public abstract class BasicEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Long id;

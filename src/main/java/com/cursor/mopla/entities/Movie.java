@@ -21,8 +21,8 @@ public class Movie extends BasicEntity {
     @EqualsAndHashCode.Exclude
     @ManyToMany
     @JoinTable(name = "movie_category",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id"))
     List<Category> categoryList;
 
     @Column(name = "director")
@@ -36,6 +36,6 @@ public class Movie extends BasicEntity {
     private Rate rate;
 
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
     private List<Feedback> feedbacks = new ArrayList<>();
 }
