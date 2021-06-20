@@ -12,7 +12,12 @@ public interface MovieService {
 
     Movie update(Movie movie);
 
-    void delete(Movie movie);
+    void delete(Long id);
 
     List<Movie> findAll();
+
+    List<Movie> findAllByRating(String sort);
+
+    List<Movie> getAllByCategory(String categoryName);
 }
+
