@@ -1,4 +1,4 @@
-package com.cursor.mopla.dto;
+package com.cursor.mopla.ui.request;
 
 import com.cursor.mopla.entities.Category;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MovieDto {
+public class MovieRequest {
 
     private String name;
 
