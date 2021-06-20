@@ -21,12 +21,4 @@ public class Category extends BasicEntity {
     @Column(name = "full_name")
     private String fullName;
 
-//    @EqualsAndHashCode.Exclude
-//    @ManyToMany(mappedBy = "categoryList")
-//
-////    @ManyToMany(mappedBy = "categoryList", fetch = FetchType.LAZY)
-////    @JoinTable(name = "movie_category",
-////            joinColumns = @JoinColumn(name = "movie_id"),
-////            inverseJoinColumns = @JoinColumn(name = "category_id"))
-//    private List<Movie> movieList;
 }
