@@ -1,21 +1,18 @@
 package com.cursor.mopla.controller;
 
-import com.cursor.mopla.dto.MovieDto;
 import com.cursor.mopla.entities.Movie;
 import com.cursor.mopla.service.CategoryService;
 import com.cursor.mopla.service.MovieService;
+import com.cursor.mopla.ui.request.MovieRequest;
+import com.cursor.mopla.ui.response.MovieResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/movie")
 public class MovieController {
 
@@ -32,26 +29,69 @@ public class MovieController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/create")
-    public String create(Model model) {
+    @GetMapping(produces = {"application/json"}, path = "/admin/create")
+    public ResponseEntity<?> create(Model model) {
         model.addAttribute("movie", new Movie());
         model.addAttribute("categories", categoryService.findAll());
-        return "create-movie";
+        return ResponseEntity.ok(model);
     }
 
-    @PostMapping("/create")
-    public String create(@Validated @ModelAttribute("movie") MovieDto movieDto, BindingResult result) {
-        if (result.hasErrors()) {
-            return "create-todo";
-        }
-        movieService.create(mapper.map(movieDto, Movie.class));
-        return "redirect:/movie/all";
+    @PostMapping(produces = {"application/json"},
+            consumes = {"application/json"},
+            path = "/admin/create")
+    public ResponseEntity<?> create(@RequestBody final MovieRequest movieRequest) {
+
+        final var newMovie = movieService.create(mapper.map(movieRequest, Movie.class));
+
+        return ResponseEntity.ok(newMovie);
     }
 
-    @GetMapping("/all")
-    public String getAll(Model model) {
-        model.addAttribute("movies", movieService.findAll());
+    @GetMapping(produces = {"application/json"}, path = "/{id}")
+    public ResponseEntity<?> getMovieById(@PathVariable Long id) {
 
-        return "movies-list";
+        final var movieById = movieService.getById(id);
+
+        return new ResponseEntity<>(mapper.map(movieById, MovieResponse.class), HttpStatus.OK);
+    }
+
+    @GetMapping(produces = {"application/json"}, path = "/all")
+    public ResponseEntity<?> getAll() {
+
+        return ResponseEntity.ok(movieService.findAll());
+
+    }
+
+    @PutMapping(produces = {"application/json"},
+            consumes = {"application/json"},
+            path = "/admin/updateMovie/{id}")
+    public ResponseEntity<?> updateMovie(@PathVariable("id") long movieId,
+                                         @RequestBody final Movie movie) {
+        final var newCountry = movieService.update(movie);
+
+        return ResponseEntity.ok(newCountry);
+    }
+
+    @GetMapping("/admin/deleteMovie/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+
+        movieService.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(produces = {"application/json"},
+            path = "/stats/rating")
+    public ResponseEntity<?> getAllByRate(
+            @RequestParam(value = "sort", required = false, defaultValue = "desc") String sort) {
+
+        return ResponseEntity.ok(movieService.findAllByRating(sort));
+    }
+
+    @GetMapping(produces = {"application/json"},
+            path = "/stats/category")
+    public ResponseEntity<?> getAllByCategory(
+            @RequestParam(value = "categoryName", defaultValue = "default") String categoryName) {
+
+        return ResponseEntity.ok(movieService.getAllByCategory(categoryName));
     }
 }
