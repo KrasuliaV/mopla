@@ -29,26 +29,28 @@ public class MovieServiceImpl implements MovieService {
         if (movie != null) {
             return movieRepository.save(movie);
         }
-        throw new NullEntityReferenceException("Task cannot be 'null'");
+        throw new NullEntityReferenceException("Movie cannot be 'null'");
     }
 
     @Override
     public Movie getById(Long id) {
-        System.out.println(id);
-        final Movie byId = movieRepository.findById(id).orElseThrow(
+        return movieRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Movie with id " + id + " not found"));
-        ;
-        System.out.println(byId);
-        return movieRepository.getById(id);
     }
 
     @Override
     public Movie update(Movie movie) {
-        return movieRepository.save(movie);
+        if (movie != null) {
+            return movieRepository.save(movie);
+        }
+        throw new NullEntityReferenceException("Movie cannot be 'null'");
     }
 
     @Override
     public void delete(Long id) {
+        if (id == null || id < 0) {
+            throw new IllegalArgumentException("You must enter correct data");
+        }
         movieRepository.deleteById(id);
     }
 

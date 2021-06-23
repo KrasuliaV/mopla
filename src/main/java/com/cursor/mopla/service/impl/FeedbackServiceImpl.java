@@ -22,8 +22,14 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public Feedback create(Feedback feedback, Long movieId, Long userId) {
+
+        if (feedback == null || movieId == null || movieId < 0 || userId == null || userId < 0) {
+            throw new IllegalArgumentException("You must enter correct data");
+        }
+
         feedback.setUser(userRepository.getById(userId));
         feedback.setMovie(movieRepository.getById(userId));
+
         return feedbackRepository.save(feedback);
     }
 }
