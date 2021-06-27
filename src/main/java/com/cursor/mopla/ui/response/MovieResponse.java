@@ -1,6 +1,5 @@
-package com.cursor.mopla.dto;
+package com.cursor.mopla.ui.response;
 
-import com.cursor.mopla.entities.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,14 +9,19 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MovieDto {
+public class MovieResponse {
+
+    private Long id;
 
     private String name;
 
-    List<Category> categoryList;
+    List<CategoryResponse> categoryList;
 
     private String director;
 
     private String description;
 
+    private long votesCount;
+
+    private double value;
 }

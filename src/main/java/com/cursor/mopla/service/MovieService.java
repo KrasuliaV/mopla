@@ -1,6 +1,7 @@
 package com.cursor.mopla.service;
 
 import com.cursor.mopla.entities.Movie;
+import com.cursor.mopla.ui.response.MovieResponse;
 
 import java.util.List;
 
@@ -12,7 +13,12 @@ public interface MovieService {
 
     Movie update(Movie movie);
 
-    void delete(Movie movie);
+    void delete(Long id);
 
-    List<Movie> findAll();
+    List<MovieResponse> findAll();
+
+    List<MovieResponse> findAllByRating(String sort);
+
+    List<MovieResponse> getAllByCategory(String categoryName);
 }
+
