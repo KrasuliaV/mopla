@@ -6,7 +6,6 @@ import com.cursor.mopla.security.UserSecurityServiceImpl;
 import com.cursor.mopla.ui.request.UserRequest;
 import com.cursor.mopla.ui.response.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,7 +35,7 @@ public class UserSecurityController {
                     new UsernamePasswordAuthenticationToken(userRequest.getUsername(), userRequest.getPassword())
             );
         } catch (AuthenticationException e) {
-            return new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
+            throw new WrongCredentialException("Invalid email/password combination");
         }
         final var userDetails = userService.loadUserByUsername(userRequest.getUsername());
 

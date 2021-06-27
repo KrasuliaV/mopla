@@ -14,6 +14,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     List<Movie> getAllByOrderByRateValueDesc();
 
-    @Query(value = "SELECT * FROM movie_category WHERE categoty_id = :categoryId", nativeQuery = true)
+    @Query("select m from Movie m " +
+            "join m.categoryList cat " +
+            "where cat.id = ?1")
     List<Movie> findAllByCategoryIdAndOrderByName(Long categoryId);
 }

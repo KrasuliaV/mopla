@@ -27,9 +27,15 @@ public class FeedbackServiceImpl implements FeedbackService {
             throw new IllegalArgumentException("You must enter correct data");
         }
 
+        final var movie = movieRepository.getById(userId);
         feedback.setUser(userRepository.getById(userId));
-        feedback.setMovie(movieRepository.getById(userId));
+        feedback.setMovie(movie);
+        feedback = feedbackRepository.save(feedback);
 
-        return feedbackRepository.save(feedback);
+        movie.setVotesCount();
+        movie.setRateValue();
+        movieRepository.save(movie);
+
+        return feedback;
     }
 }

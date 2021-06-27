@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
         return getResponse(request, HttpStatus.NOT_FOUND, exception);
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
+    @ExceptionHandler({AccessDeniedException.class, WrongCredentialException.class})
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
     public ResponseEntity<?> accessDeniedHandler(HttpServletRequest request, AccessDeniedException exception) {
         return getResponse(request, HttpStatus.FORBIDDEN, exception);

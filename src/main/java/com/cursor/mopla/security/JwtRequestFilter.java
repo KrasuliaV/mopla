@@ -1,6 +1,6 @@
 package com.cursor.mopla.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -13,13 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@AllArgsConstructor
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-    @Autowired
-    private UserSecurityServiceImpl userService;
 
-    @Autowired
-    JwtUtil jwtTokenUtil;
+    private final UserSecurityServiceImpl userService;
+    private final JwtUtil jwtTokenUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

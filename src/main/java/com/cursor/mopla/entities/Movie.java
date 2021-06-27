@@ -50,6 +50,7 @@ public class Movie extends BasicEntity {
                 .stream()
                 .filter(Feedback::isLiked)
                 .count();
+
         return Math.max(10.00 / votesCount * likeCount, 1.00);
     }
 
@@ -61,4 +62,11 @@ public class Movie extends BasicEntity {
         return feedbacks.size();
     }
 
+    public void setVotesCount() {
+        this.votesCount = feedbacks.size();
+    }
+
+    public void setRateValue() {
+        this.rateValue = valueCount();
+    }
 }

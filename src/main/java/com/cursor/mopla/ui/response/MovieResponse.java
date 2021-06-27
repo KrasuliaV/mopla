@@ -21,7 +21,6 @@ public class MovieResponse {
 
     private String description;
 
-    //    private Rate rate;
     private long votesCount;
 
     private double value;
